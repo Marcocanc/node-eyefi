@@ -40,17 +40,19 @@ exports.upload = function(req, res) {
     if(config.cards[obj.macaddress].folder) {
       folder = config.cards[obj.macaddress].folder;
     }
-
+    console.log(req.files.FILENAME);
     fs.createReadStream(req.files.FILENAME.path)
       .pipe(tar.Extract({ path: folder }))
       .on("error", function (err) {
         console.error("error here")
       })
       .on("end", function () {
+        console.log(folder);
         var file = folder+req.files.FILENAME.name.substr(0, req.files.FILENAME.name.length -4);
+        console.log(file);
         if(config.cards[obj.macaddress].command) {
           
-          console.log(file);
+          
           var command = util.format(config.cards[obj.macaddress].command, path.normalize(file));
           console.log(command);
           child = exec(command, function (error, stdout, stderr) {
@@ -93,7 +95,7 @@ fs.createReadStream(file));
     });
 
     response.on("end", function() {
-        console.log("Data: " + data);
+        //console.log("Data: " + data);
     });
 
     response.on("error", function(error) {
@@ -134,17 +136,17 @@ exports.soap = function(req, res) {
   //GetCardSettings
   var renderStartSession = function(err, data) {
     var obj = data["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:StartSession"][0];
-    console.log(obj.macaddress);
     if(config.cards[obj.macaddress]) {
       var credential = md5HexDigest(obj.macaddress + obj.cnonce + config.cards[obj.macaddress].uploadkey);
-      res.render('startSession', {layout:false, "credential": credential, "snonce":"d7eda40e374e8a34ee97554ebbfea0b5", "transfermodetimestamp": obj.transfermodetimestamp, "transfermode":obj.transfermode });  
+      res.render('startSession', {layout:false, "credential": credential, "snonce":"8744904b7ea202439631c67186690a1e", "transfermodetimestamp": obj.transfermodetimestamp, "transfermode":obj.transfermode });  
     }
   };
 
   var renderGetPhotoStatus = function(err, data) {
     var obj = data["SOAP-ENV:Envelope"]["SOAP-ENV:Body"][0]["ns1:GetPhotoStatus"][0];
+    console.log("we got this far");
     if(config.cards[obj.macaddress]) {
-      var credential = md5HexDigest(obj.macaddress + config.cards[obj.macaddress].uploadkey + "d7eda40e374e8a34ee97554ebbfea0b5");
+      var credential = md5HexDigest(obj.macaddress + config.cards[obj.macaddress].uploadkey + "8744904b7ea202439631c67186690a1e");
       res.render('getPhotoStatus', {layout:false});
     }
   };
@@ -170,7 +172,9 @@ exports.soap = function(req, res) {
   /*
    * Decide what kind of SOAP request this was.
    */
+   console.log(req.headers.soapaction);
   switch(req.headers.soapaction.substr(5, req.headers.soapaction.length-6)) {
+
     case "StartSession":
       console.log("StartSession");
       //console.log(req.params);
