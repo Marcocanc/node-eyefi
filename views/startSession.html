@@ -4,9 +4,9 @@
     <StartSessionResponse xmlns="http://localhost/api/soap/eyefilm">
       <credential><%= credential %></credential>
       <snonce><%= snonce %></snonce>
-      <transfermode>2</transfermode>
+      <transfermode><%= transfermode %></transfermode>
       <transfermodetimestamp><%= transfermodetimestamp %></transfermodetimestamp>
-      <upsyncallowed>false</upsyncallowed>
+      <upsyncallowed>true</upsyncallowed>
     </StartSessionResponse>
   </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>

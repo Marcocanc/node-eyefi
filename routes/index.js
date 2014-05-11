@@ -47,7 +47,7 @@ exports.upload = function(req, res) {
         console.error("error here")
       })
       .on("end", function () {
-        var file = folder+req.files.FILENAME.filename.substr(0, req.files.FILENAME.filename.length -4);
+        var file = folder+req.files.FILENAME.name.substr(0, req.files.FILENAME.name.length -4);
         if(config.cards[obj.macaddress].command) {
           
           console.log(file);
@@ -111,7 +111,7 @@ fs.createReadStream(file));
             });
           });*/
         }
-        console.log(req.socket._idleStart.getTime());
+        //console.log(req.socket._idleStart.getTime());
         console.log(new Date().getTime());
         console.log("\nFinished Upload successfully.");
         res.render('uploadSuccess', {layout: false});
@@ -137,7 +137,7 @@ exports.soap = function(req, res) {
     console.log(obj.macaddress);
     if(config.cards[obj.macaddress]) {
       var credential = md5HexDigest(obj.macaddress + obj.cnonce + config.cards[obj.macaddress].uploadkey);
-      res.render('startSession', {layout:false, "credential": credential, "snonce":"d7eda40e374e8a34ee97554ebbfea0b5", "transfermodetimestamp": obj.transfermodetimestamp});  
+      res.render('startSession', {layout:false, "credential": credential, "snonce":"d7eda40e374e8a34ee97554ebbfea0b5", "transfermodetimestamp": obj.transfermodetimestamp, "transfermode":obj.transfermode });  
     }
   };
 
