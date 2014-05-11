@@ -12,7 +12,7 @@ Features include:
 
 Simplfy clone the repository, run npm install and start the app.
 
-    git clone git://github.com/komola/node-eyefi.git
+    git clone git://github.com/Marcocanc/node-eyefi.git
     npm install .
 
 ## Usage
