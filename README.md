@@ -39,10 +39,12 @@ As soon as an image comes in, we'll inform you in the console.
 
 ## Issues?
 
-The software has only been tested with Windows 7 x64, Mac OS X (10.5 and 10.6) and Debian 6 and an Eye-FI PRO X2 Card (Version 5.0001).
+The software has only been tested with Windows 7 x64, Mac OS X (10.5, 10.6 and 10.9), Debian 6 and Raspbian and an Eye-FI PRO X2 Card (Version 5.2010).
 
 If you open an Issue, state as much information as possible such as: Eye-FI Firmware, Operating System, Node Version.
 
 ## Thanks
+
+The original repository was forked from https://github.com/komola/node-eyefi
 
 The documentation was taken from https://github.com/tachang/EyeFiServer and https://github.com/kristofg/rifec
